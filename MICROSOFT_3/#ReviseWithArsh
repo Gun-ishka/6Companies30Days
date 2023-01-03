@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        int secretFre[10] = {0};
+        int guessFre[10]  = {0};//0,1,2,3,4,5....9 can be any value but atmost 10 times
+
+        //BULLS means correct value and correct position
+        //COWS means correct value and wrong position 
+        //Calculating BULLS
+        int BULLS = 0, COWS = 0;
+        for(int i=0;i<secret.size();i++){
+            if(secret[i]==guess[i]){
+                BULLS++;
+            }
+            else{
+                secretFre[secret[i]-'0']++;
+                guessFre[guess[i]-'0']++;
+            }
+        }
+        for(int i=0;i<10;i++)
+            COWS+=min(secretFre[i],guessFre[i]);
+
+        return to_string(BULLS)+"A"+to_string(COWS)+"B";
+    }
+
+};
